@@ -17,7 +17,7 @@ module Api
         if item.save
           render json: { status: 'SUCCESS', message: 'loaded the item', data: item }
         else
-          render json: { status: 'SUCCESS', message: 'loaded the item', data: item.errors }
+          render json: { status: 'ERROR', message: 'loaded the item', data: item.errors }
         end
       end
 
@@ -32,7 +32,7 @@ module Api
         if item.update(item_params)
           render json: { status: 'SUCCESS', message: 'updated the item', data: item }
         else
-          render json: { status: 'SUCCESS', message: 'loaded the item', data: item.errors }
+          render json: { status: 'ERROR', message: 'loaded the item', data: item.errors }
         end
       end
 
