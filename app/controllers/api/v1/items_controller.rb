@@ -10,18 +10,14 @@ module Api
       end
 
       def show
-        item = Item.find(params[:id])
-        render json: { status: 'SUCCESS', message: 'loaded the item', data: item }
+        @item = Item.find(params[:id])
+        render 'show', formats: 'json', handlers: 'jbuilder'
       end
 
       def create
-        item = Item.new(item_params)
-        # item = Item.create(item_params)
-        image_test = Base64.decode64(item_params[:image])
-        p image_test
-        item.imageSave = item_params[:image]
-        if item.save
-          render json: { status: 'SUCCESS', message: 'loaded the item', data: item }
+        @item = Item.new(item_params)
+        if @item.save
+          render 'show', formats: 'json', handlers: 'jbuilder'
         else
           render json: { status: 'ERROR', message: 'loaded the item', data: item.errors }
         end
