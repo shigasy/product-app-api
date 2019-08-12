@@ -3,8 +3,10 @@ module Api
     # 商品データの登録・検索・変更・削除機能
     class ItemsController < ApplicationController
       def index
-        items = Item.all
-        render json: { status: 'SUCCESS', message: 'loaded items', data: items }
+        # items = Item.all
+        # render json: { status: 'SUCCESS', message: 'loaded items', data: items }
+        @items = Item.with_attached_item_image
+        render 'index', formats: 'json', handlers: 'jbuilder'
       end
 
       def show
@@ -14,6 +16,10 @@ module Api
 
       def create
         item = Item.new(item_params)
+        # item = Item.create(item_params)
+        image_test = Base64.decode64(item_params[:image])
+        p image_test
+        item.imageSave = item_params[:image]
         if item.save
           render json: { status: 'SUCCESS', message: 'loaded the item', data: item }
         else
@@ -39,7 +45,7 @@ module Api
       private
 
       def item_params
-        params.require(:item).permit(:title, :description, :price)
+        params.require(:item).permit(:title, :description, :price, :image)
       end
     end
   end
