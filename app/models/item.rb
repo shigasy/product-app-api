@@ -7,7 +7,7 @@ class Item < ApplicationRecord
 
   attr_accessor :image
 
-  def imageSave=(image)
+  def parse_base64(image)
     if image.present?
       prefix = image[/(image|application)(\/.*)(?=\;)/]
       type = prefix.sub(/(image|application)(\/)/, '')
@@ -17,9 +17,6 @@ class Item < ApplicationRecord
         f.write(data)
       end
       attach_image(filename)
-      # image.detach if image.attached?
-      # image.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)
-      # FileUtils.rm("#{Rails.root}/tmp/#{filename}")
     end
   end
 
