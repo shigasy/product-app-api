@@ -7,6 +7,8 @@ class Item < ApplicationRecord
 
   attr_accessor :image
 
+  scope :search_title_description, ->(word) { where('title LIKE :word OR description LIKE :word', word: "%#{word}%") }
+
   def parse_base64(image)
     if image.present?
       prefix = image[/(image|application)(\/.*)(?=\;)/]

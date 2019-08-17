@@ -37,11 +37,17 @@ module Api
         end
       end
 
+      def search
+        @items = Item.search_title_description(params[:word])
+        render 'index', formats: 'json', handlers: 'jbuilder'
+      end
+
       private
 
       def item_params
         params.require(:item).permit(:title, :description, :price, :image)
       end
+
     end
   end
 end
