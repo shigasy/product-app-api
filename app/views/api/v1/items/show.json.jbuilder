@@ -5,6 +5,7 @@ if @item.present?
     json.item do
       json.extract! @item, :id, :title, :description, :price, :created_at, :updated_at
       json.image rails_blob_url(@item.item_image) if @item.item_image.attached?
+      json.shop @item.shop
     end
   end
 end

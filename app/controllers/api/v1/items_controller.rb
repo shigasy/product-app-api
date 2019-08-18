@@ -3,7 +3,7 @@ module Api
     # 商品データの登録・検索・変更・削除機能
     class ItemsController < ApplicationController
       def index
-        @items = Item.with_attached_item_image
+        @items = Item.with_attached_item_image.includes(:shop)
         render 'index', formats: 'json', handlers: 'jbuilder'
       end
 
@@ -14,6 +14,8 @@ module Api
 
       def create
         @item = Item.new(item_params)
+        @item[:shop_id] = Shop.find_by_name(item_params[:shop_id])&.id
+        p @item
         if @item.save
           @item.parse_base64(item_params[:image])
           render 'show', formats: 'json', handlers: 'jbuilder'
@@ -45,7 +47,7 @@ module Api
       private
 
       def item_params
-        params.require(:item).permit(:title, :description, :price, :image)
+        params.require(:item).permit(:title, :description, :price, :image, :shop_id)
       end
 
     end

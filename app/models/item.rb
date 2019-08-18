@@ -1,9 +1,11 @@
 class Item < ApplicationRecord
+  belongs_to :shop
   has_one_attached :item_image
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, length: { maximum: 500 }
   validates :price, presence: true, numericality: { only_integer: true, greater_than: -1 }
+  validates :shop_id, presence: true
 
   attr_accessor :image
 
