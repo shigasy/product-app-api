@@ -13,7 +13,7 @@
 CI/CD: CircleCI  
 
 ### DB設計
-
+![image](https://user-images.githubusercontent.com/40525390/63229689-32f21e80-c23e-11e9-81dd-1faaa72a1701.png)
 
 ### API仕様書
 `GET /api/v1/items`  商品一覧取得
