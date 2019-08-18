@@ -15,7 +15,6 @@ module Api
       def create
         @item = Item.new(item_params)
         @item[:shop_id] = Shop.find_by_name(item_params[:shop_id])&.id
-        p @item
         if @item.save
           @item.parse_base64(item_params[:image])
           render 'show', formats: 'json', handlers: 'jbuilder'
