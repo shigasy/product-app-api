@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :items do
         collection { get 'search' }
       end
-      resources :shops, only: [:index, :create] do
+      resources :shops, only: [:index, :show, :create] do
         collection { get 'names' }
       end
     end

@@ -4,6 +4,11 @@ class Api::V1::ShopsController < ApplicationController
     render 'index', formats: 'json', handlers: 'jbuilder'
   end
 
+  def show
+    @shop = Shop.includes(:items).find(params[:id])
+    render 'show', formats: 'json', handlers: 'jbuilder'
+  end
+
 
   def create
     @shop = Shop.new(shop_params)
@@ -24,5 +29,3 @@ class Api::V1::ShopsController < ApplicationController
     params.require(:shop).permit(:name)
   end
 end
-
-# 店舗名はかならずある、店舗に所属しないモノはない

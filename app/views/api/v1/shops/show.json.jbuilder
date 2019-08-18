@@ -1,11 +1,10 @@
-if @shops.present?
+if @shop.present?
   json.status 'SUCCESS'
   json.message 'loaded the shop'
   json.data do
-    json.shops do
-      json.array!(@shops) do |shop|
-        json.extract! shop, :id, :name, :created_at, :updated_at
-      end
+    json.shop do
+      json.extract! @shop, :id, :name, :created_at, :updated_at
+      json.items @shop.items
     end
   end
 end
